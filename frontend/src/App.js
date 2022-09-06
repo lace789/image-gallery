@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { Component, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Search from "./components/search";
 import ImageCard from "./components/ImageCard";
 import { Row, Col, Container } from "react-bootstrap";
+import Welcome from "./components/Welcome";
 
 const UNSPLASH_KEY = process.env.REACT_APP_UNSPLASH_KEY;
 
@@ -36,17 +37,21 @@ const App = () => {
       <Header title="Image Gallery" />
       <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
       <Container>
-        <Row>
-          {images.map((image, i) => (
-            <Col>
-              <ImageCard
-                image={image}
-                key={i}
-                deleteImage={handleDeleteImage}
-              />
-            </Col>
-          ))}
-        </Row>
+        {images.length ? (
+          <Row>
+            {images.map((image, i) => (
+              <Col>
+                <ImageCard
+                  image={image}
+                  key={i}
+                  deleteImage={handleDeleteImage}
+                />
+              </Col>
+            ))}
+          </Row>
+        ) : (
+          <Welcome />
+        )}
       </Container>
     </div>
   );
